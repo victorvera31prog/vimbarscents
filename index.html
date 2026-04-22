@@ -1,0 +1,1785 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VimBar Scents — Aromas que transforman tu espacio</title>
+<meta name="description" content="Difusores de varillas y room sprays artesanales. Aromas cuidadosamente formulados para tu hogar, oficina o negocio. Pedidos por WhatsApp." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ═══════════════════════════════════════════════════════════
+     RESET & BASE
+     ═══════════════════════════════════════════════════════════ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  :root {
+    --cream: #f8f5f0;
+    --cream-deep: #f0ece4;
+    --cream-soft: #faf8f4;
+    --ink: #1a1814;
+    --ink-soft: #4a453d;
+    --ink-mute: #8a8478;
+    --ink-faint: #c9c3b5;
+    --line: rgba(26, 24, 20, 0.1);
+    --line-strong: rgba(26, 24, 20, 0.25);
+    --accent: #c4925c;           /* oro mate tipo etiqueta */
+    --accent-deep: #8a6239;
+    --blush: #e8d5cc;             /* rosado de las peonías */
+    --sage: #b5c4b1;              /* verde muy tenue */
+    --wa: #25D366;
+    --wa-deep: #1fbd5a;
+  }
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Inter Tight', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+    letter-spacing: 0.005em;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--ink); color: var(--cream); }
+
+  /* Subtle paper texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     TYPOGRAPHY
+     ═══════════════════════════════════════════════════════════ */
+  .serif { font-family: 'Fraunces', serif; font-weight: 400; }
+  .serif-italic { font-family: 'Fraunces', serif; font-style: italic; font-weight: 300; }
+
+  .eyebrow {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     ANNOUNCEMENT BAR
+     ═══════════════════════════════════════════════════════════ */
+  .announcement {
+    background: var(--ink);
+    color: var(--cream);
+    text-align: center;
+    padding: 0.6rem 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 400;
+    position: relative;
+    z-index: 101;
+    overflow: hidden;
+  }
+  .announcement-track {
+    display: inline-block;
+    animation: scroll 40s linear infinite;
+    white-space: nowrap;
+  }
+  .announcement-track span { margin: 0 2.5rem; }
+  .announcement-track span::before {
+    content: '◦';
+    margin-right: 2.5rem;
+    color: var(--accent);
+  }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     NAVIGATION
+     ═══════════════════════════════════════════════════════════ */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 1.4rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 2rem;
+    background: rgba(248, 245, 240, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--line);
+    transition: padding 0.4s ease;
+  }
+  nav.scrolled { padding: 0.9rem 3rem; }
+  .nav-left, .nav-right { display: flex; align-items: center; }
+  .nav-right { justify-content: flex-end; }
+  .logo {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    text-align: center;
+    font-weight: 400;
+  }
+  .logo-mark {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+  .nav-links {
+    display: flex;
+    gap: 2.2rem;
+    list-style: none;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .nav-links a {
+    position: relative;
+    padding: 0.3rem 0;
+    transition: color 0.3s;
+    color: var(--ink-soft);
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 1px;
+    background: var(--ink);
+    transition: width 0.4s ease;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 0.8rem 1.3rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: all 0.3s;
+  }
+  .nav-cta:hover { background: var(--accent-deep); transform: translateY(-1px); }
+  .nav-cta svg { width: 14px; height: 14px; }
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--ink);
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+  .menu-toggle svg { width: 22px; height: 22px; }
+
+  @media (max-width: 900px) {
+    nav {
+      padding: 1rem 1.3rem;
+      grid-template-columns: 1fr auto 1fr;
+    }
+    .nav-left { order: 3; justify-content: flex-end; }
+    .nav-right { order: 1; justify-content: flex-start; }
+    .nav-links {
+      position: absolute;
+      top: 100%;
+      left: 0; right: 0;
+      flex-direction: column;
+      background: var(--cream-soft);
+      padding: 2rem;
+      gap: 1.3rem;
+      border-bottom: 1px solid var(--line);
+      transform: translateY(-10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s;
+    }
+    .nav-links.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+    .menu-toggle { display: block; }
+    .nav-cta { display: none; }
+    .logo { font-size: 1.15rem; }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════════════════════ */
+  .hero {
+    position: relative;
+    min-height: calc(100vh - 90px);
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    align-items: stretch;
+    gap: 0;
+    z-index: 2;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-text {
+    padding: 6rem 3rem 5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+  .hero-marker {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  .hero-marker::before {
+    content: '';
+    width: 50px; height: 1px;
+    background: var(--ink);
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.8rem, 6.5vw, 5.8rem);
+    line-height: 0.98;
+    font-weight: 300;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-bottom: 2rem;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent-deep);
+  }
+  .hero-lead {
+    font-size: 1.05rem;
+    max-width: 440px;
+    color: var(--ink-soft);
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 3.5rem;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 1.1rem 1.9rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    position: relative;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: var(--cream);
+  }
+  .btn-primary:hover {
+    background: var(--accent-deep);
+    transform: translateY(-2px);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+  }
+  .btn-ghost:hover {
+    background: var(--ink);
+    color: var(--cream);
+  }
+  .btn svg { width: 14px; height: 14px; transition: transform 0.3s; }
+  .btn:hover svg { transform: translateX(3px); }
+
+  .hero-meta {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+  }
+  .meta-item { }
+  .meta-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--accent-deep);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .meta-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    font-weight: 500;
+  }
+
+  .hero-visual {
+    position: relative;
+    background: var(--cream-deep);
+    overflow: hidden;
+    border-left: 1px solid var(--line);
+  }
+  .hero-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    animation: slowZoom 25s ease-in-out infinite alternate;
+  }
+  @keyframes slowZoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.06); }
+  }
+  .hero-stamp {
+    position: absolute;
+    top: 2.5rem;
+    right: 2.5rem;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: var(--cream);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    border: 1px solid var(--accent);
+    animation: gentleRotate 30s linear infinite;
+  }
+  .hero-stamp-inner {
+    text-align: center;
+    transform: rotate(0);
+  }
+  .hero-stamp .num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--accent-deep);
+    line-height: 1;
+  }
+  .hero-stamp .lbl {
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 0.4rem;
+    font-weight: 500;
+  }
+  @keyframes gentleRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .hero-stamp-inner {
+    animation: gentleRotateReverse 30s linear infinite;
+  }
+  @keyframes gentleRotateReverse {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+  }
+
+  .hero-caption {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 2.5rem;
+    z-index: 3;
+    background: var(--cream);
+    padding: 1rem 1.3rem;
+    max-width: 260px;
+    border-left: 2px solid var(--accent);
+  }
+  .hero-caption-eyebrow {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+  }
+  .hero-caption-text {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink);
+    line-height: 1.4;
+    font-weight: 300;
+  }
+
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+    .hero-text {
+      padding: 3rem 1.5rem 3rem;
+      order: 2;
+    }
+    .hero-visual {
+      order: 1;
+      height: 60vh;
+      min-height: 440px;
+      border-left: none;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-stamp { width: 85px; height: 85px; top: 1.5rem; right: 1.5rem; }
+    .hero-stamp .num { font-size: 1.15rem; }
+    .hero-caption { left: 1.5rem; bottom: 1.5rem; max-width: 70vw; }
+    .hero-meta { gap: 2rem; }
+    .meta-num { font-size: 1.4rem; }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     SECTION BASE
+     ═══════════════════════════════════════════════════════════ */
+  section {
+    position: relative;
+    z-index: 2;
+    padding: 7rem 3rem;
+  }
+  @media (max-width: 768px) { section { padding: 5rem 1.5rem; } }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 5rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .section-eyebrow {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .section-title em {
+    font-style: italic;
+    color: var(--accent-deep);
+  }
+  .section-subtitle {
+    max-width: 560px;
+    margin: 1.8rem auto 0;
+    color: var(--ink-soft);
+    font-size: 1rem;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     VALUES STRIP
+     ═══════════════════════════════════════════════════════════ */
+  .values {
+    padding: 5rem 3rem;
+    background: var(--cream-soft);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  .value-item {
+    padding: 2rem 2rem;
+    text-align: center;
+    border-right: 1px solid var(--line);
+    transition: background 0.3s;
+  }
+  .value-item:last-child { border-right: none; }
+  .value-icon {
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 1.2rem;
+    color: var(--accent-deep);
+    stroke-width: 1;
+  }
+  .value-item h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    margin-bottom: 0.4rem;
+    color: var(--ink);
+  }
+  .value-item p {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    max-width: 200px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+  @media (max-width: 768px) {
+    .values { padding: 3rem 1.5rem; }
+    .values-grid { grid-template-columns: repeat(2, 1fr); }
+    .value-item:nth-child(2) { border-right: none; }
+    .value-item:nth-child(-n+2) { border-bottom: 1px solid var(--line); padding-bottom: 2.5rem; }
+    .value-item:nth-child(n+3) { padding-top: 2.5rem; }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     COLLECTION — PRODUCT CARDS
+     ═══════════════════════════════════════════════════════════ */
+  .collection { }
+  .filter-bar {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-bottom: 3.5rem;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    color: var(--ink-soft);
+    padding: 0.65rem 1.3rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-family: 'Inter Tight', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .filter-btn:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+  .filter-btn.active {
+    background: var(--ink);
+    color: var(--cream);
+    border-color: var(--ink);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem 1.5rem;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  .card {
+    position: relative;
+    cursor: pointer;
+    background: transparent;
+    transition: opacity 0.5s, transform 0.5s;
+  }
+  .card.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.95);
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+  }
+  .card-frame {
+    position: relative;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    background: var(--cream-deep);
+    margin-bottom: 1.2rem;
+    border: 1px solid var(--line);
+    transition: border-color 0.4s, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), z-index 0s 0.6s;
+    will-change: transform;
+  }
+  .card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.6s;
+    filter: saturate(1.02);
+  }
+  .card-tag {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.8rem;
+    z-index: 3;
+    font-weight: 500;
+    border: 1px solid var(--line);
+  }
+  .card-tag.accent {
+    background: var(--ink);
+    color: var(--cream);
+    border-color: var(--ink);
+  }
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(26, 24, 20, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s;
+    z-index: 4;
+    padding: 2rem;
+  }
+  .card-overlay-inner {
+    text-align: center;
+    transform: translateY(15px);
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .card-overlay .card-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.9rem 1.5rem;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-family: 'Inter Tight', sans-serif;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .card-overlay .card-action:hover {
+    background: var(--accent);
+    color: var(--cream);
+  }
+  .card-overlay .card-action svg { width: 14px; height: 14px; }
+  .card-overlay p {
+    color: var(--cream);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    max-width: 260px;
+  }
+
+  .card-info {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: start;
+  }
+  .card-category {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 0.35rem;
+    font-weight: 500;
+  }
+  .card-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 0.3rem;
+  }
+  .card-notes {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    font-weight: 300;
+  }
+  .card-size {
+    text-align: right;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--accent-deep);
+    white-space: nowrap;
+    padding-top: 0.2rem;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .card:hover .card-frame {
+      border-color: var(--accent);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(26, 24, 20, 0.08);
+    }
+    .card:hover img {
+      transform: scale(1.06);
+    }
+    .card:hover .card-overlay { opacity: 1; }
+    .card:hover .card-overlay-inner { transform: translateY(0); }
+
+    .grid:hover .card:not(:hover):not(.hidden) .card-frame {
+      filter: blur(2px) brightness(0.9);
+    }
+  }
+
+  @media (hover: none), (pointer: coarse) {
+    .card.is-focused .card-frame {
+      border-color: var(--accent);
+      transform: scale(1.02);
+      box-shadow: 0 15px 35px rgba(26, 24, 20, 0.1);
+    }
+    .card.is-focused img {
+      transform: scale(1.06);
+    }
+    .card.is-focused .card-overlay { opacity: 1; }
+    .card.is-focused .card-overlay-inner { transform: translateY(0); }
+    .grid.has-focus .card:not(.is-focused):not(.hidden) .card-frame {
+      filter: blur(2px) brightness(0.9);
+    }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     STORY SECTION
+     ═══════════════════════════════════════════════════════════ */
+  .story {
+    background: var(--cream-soft);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .story-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 5rem;
+    align-items: center;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  .story-visual {
+    position: relative;
+    aspect-ratio: 3/4;
+  }
+  .story-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .story-visual::after {
+    content: '';
+    position: absolute;
+    inset: -25px -25px 25px 25px;
+    border: 1px solid var(--accent);
+    z-index: -1;
+    transition: inset 0.8s ease;
+  }
+  .story-visual.active::after {
+    inset: 25px 25px -25px -25px;
+  }
+  .story-text h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 1.8rem;
+    letter-spacing: -0.01em;
+  }
+  .story-text h2 em { font-style: italic; color: var(--accent-deep); }
+  .story-text p {
+    color: var(--ink-soft);
+    margin-bottom: 1.3rem;
+    font-size: 1rem;
+    max-width: 500px;
+  }
+  .signature {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  .signature-line {
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+  }
+  .signature-text {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--accent-deep);
+  }
+
+  @media (max-width: 900px) {
+    .story-wrap { grid-template-columns: 1fr; gap: 3rem; }
+    .story-visual::after { inset: -15px -15px 15px 15px; }
+    .story-visual.active::after { inset: 15px 15px -15px -15px; }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     PROCESS / HOW IT WORKS
+     ═══════════════════════════════════════════════════════════ */
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .process-item {
+    text-align: center;
+    position: relative;
+    padding: 0 1rem;
+  }
+  .process-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 28px;
+    right: -1.5rem;
+    width: 3rem;
+    height: 1px;
+    background: linear-gradient(90deg, var(--line-strong), transparent);
+  }
+  .process-num {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--cream);
+    border: 1px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--accent-deep);
+    position: relative;
+    z-index: 2;
+    background: var(--cream);
+  }
+  .process-item h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 0.7rem;
+    color: var(--ink);
+  }
+  .process-item p {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    max-width: 280px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  @media (max-width: 768px) {
+    .process-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .process-item:not(:last-child)::after { display: none; }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     TESTIMONIALS
+     ═══════════════════════════════════════════════════════════ */
+  .testimonials {
+    background: var(--cream-soft);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .testi-card {
+    padding: 2.5rem 2rem;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    position: relative;
+    transition: all 0.4s;
+  }
+  .testi-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+  .testi-quote {
+    font-family: 'Fraunces', serif;
+    font-size: 3.5rem;
+    color: var(--accent);
+    line-height: 1;
+    font-style: italic;
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+  }
+  .testi-text {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--ink);
+    margin-bottom: 1.8rem;
+    font-weight: 300;
+  }
+  .testi-divider {
+    width: 30px;
+    height: 1px;
+    background: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .testi-author {
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .testi-role {
+    font-size: 0.75rem;
+    color: var(--ink-mute);
+    margin-top: 0.3rem;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     CTA
+     ═══════════════════════════════════════════════════════════ */
+  .cta-section {
+    background: var(--ink);
+    color: var(--cream);
+    text-align: center;
+    padding: 8rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 140%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(196, 146, 92, 0.12), transparent 55%);
+    pointer-events: none;
+  }
+  .cta-section > * { position: relative; z-index: 2; }
+  .cta-section .section-eyebrow { color: var(--accent); }
+  .cta-section h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+    line-height: 1.05;
+    font-weight: 300;
+    margin-bottom: 1.2rem;
+    color: var(--cream);
+    letter-spacing: -0.01em;
+  }
+  .cta-section h2 em { font-style: italic; color: var(--accent); }
+  .cta-section p {
+    max-width: 500px;
+    margin: 0 auto 3rem;
+    color: var(--ink-faint);
+    font-size: 1rem;
+  }
+  .whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    background: var(--wa);
+    color: #fff;
+    padding: 1.3rem 2.5rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: 0 8px 30px rgba(37, 211, 102, 0.25);
+    position: relative;
+  }
+  .whatsapp-btn::before {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border: 1px solid rgba(37, 211, 102, 0.3);
+    transition: inset 0.4s;
+    pointer-events: none;
+  }
+  .whatsapp-btn:hover {
+    transform: translateY(-3px);
+    background: var(--wa-deep);
+    box-shadow: 0 12px 40px rgba(37, 211, 102, 0.35);
+  }
+  .whatsapp-btn:hover::before { inset: -10px; }
+  .whatsapp-btn svg { width: 20px; height: 20px; }
+  .cta-phone {
+    margin-top: 1.8rem;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--accent);
+    font-size: 1.05rem;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     FAQ
+     ═══════════════════════════════════════════════════════════ */
+  .faq-wrap {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--line);
+    padding: 1.8rem 0;
+    cursor: pointer;
+    transition: padding 0.3s;
+  }
+  .faq-q {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    color: var(--ink);
+    font-weight: 400;
+    transition: color 0.3s;
+  }
+  .faq-item:hover .faq-q { color: var(--accent-deep); }
+  .faq-icon {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    color: var(--accent-deep);
+    transition: transform 0.4s;
+  }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.4s, opacity 0.4s;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    opacity: 0;
+    padding: 0;
+    max-width: 600px;
+  }
+  .faq-item.open .faq-a {
+    max-height: 220px;
+    padding: 1rem 0 0;
+    opacity: 1;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     SOCIAL
+     ═══════════════════════════════════════════════════════════ */
+  .social-grid {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+  }
+  .social-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 3rem 3.5rem;
+    background: var(--cream-soft);
+    border: 1px solid var(--line);
+    min-width: 280px;
+    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .social-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    opacity: 0;
+    transition: opacity 0.6s;
+  }
+  .social-card > * { position: relative; z-index: 2; }
+  .social-card:hover {
+    transform: translateY(-6px);
+    border-color: transparent;
+    box-shadow: 0 20px 50px rgba(220, 39, 67, 0.25);
+  }
+  .social-card:hover::before { opacity: 1; }
+  .social-card:hover .social-handle,
+  .social-card:hover .social-label,
+  .social-card:hover .social-meta,
+  .social-card:hover svg { color: #fff; }
+  .social-card svg {
+    width: 34px;
+    height: 34px;
+    color: var(--ink);
+    transition: color 0.5s;
+  }
+  .social-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    font-weight: 500;
+    transition: color 0.5s;
+  }
+  .social-handle {
+    font-family: 'Fraunces', serif;
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--ink);
+    transition: color 0.5s;
+  }
+  .social-meta {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    transition: color 0.5s;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════════════════ */
+  footer {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 5rem 3rem 2rem;
+    border-top: 1px solid var(--line);
+    position: relative;
+    z-index: 2;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 3rem;
+    max-width: 1300px;
+    margin: 0 auto 3rem;
+  }
+  .footer-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+  .footer-logo em { font-style: italic; font-weight: 300; color: var(--accent); }
+  .footer-brand p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--ink-faint);
+    font-size: 1rem;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+  .footer-col h4 {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.4rem;
+    font-weight: 500;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 0.7rem; }
+  .footer-col a {
+    color: var(--ink-faint);
+    font-size: 0.88rem;
+    transition: color 0.3s;
+  }
+  .footer-col a:hover { color: var(--cream); }
+  .footer-bottom {
+    border-top: 1px solid rgba(248, 245, 240, 0.1);
+    padding-top: 2rem;
+    text-align: center;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .footer-bottom span { color: var(--accent); }
+  @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; } }
+  @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; } footer { padding: 4rem 1.5rem 2rem; } }
+
+  /* ═══════════════════════════════════════════════════════════
+     FLOATING WHATSAPP
+     ═══════════════════════════════════════════════════════════ */
+  .float-wa {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 58px;
+    height: 58px;
+    background: var(--wa);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+    z-index: 99;
+    transition: all 0.3s;
+    animation: pulse 2.8s ease-in-out infinite;
+  }
+  .float-wa:hover { transform: scale(1.08); animation: none; }
+  .float-wa svg { width: 28px; height: 28px; color: #fff; }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4), 0 0 0 0 rgba(37, 211, 102, 0.55); }
+    50% { box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4), 0 0 0 18px rgba(37, 211, 102, 0); }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     SCROLL REVEAL
+     ═══════════════════════════════════════════════════════════ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(35px);
+    transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT -->
+<div class="announcement">
+  <div class="announcement-track">
+    <span>Envíos a todo México</span>
+    <span>Aromatizantes artesanales</span>
+    <span>Difusores · Room sprays</span>
+    <span>Pedidos por WhatsApp</span>
+    <span>Envíos a todo México</span>
+    <span>Aromatizantes artesanales</span>
+    <span>Difusores · Room sprays</span>
+    <span>Pedidos por WhatsApp</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-left">
+    <button class="menu-toggle" id="menuToggle" aria-label="Menú">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#collection">Colección</a></li>
+      <li><a href="#story">Historia</a></li>
+      <li><a href="#process">Cómo funciona</a></li>
+      <li><a href="#faq">Preguntas</a></li>
+    </ul>
+  </div>
+  <div class="logo">VIMBAR <span class="logo-mark">Scents</span></div>
+  <div class="nav-right">
+    <a href="https://wa.me/525577169082?text=Hola!%20Me%20interesa%20un%20producto%20de%20VimBar%20Scents" target="_blank" rel="noopener" class="nav-cta">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Pedir
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-text">
+    <div class="hero-marker">
+      <span class="eyebrow">Aromatizantes de autor · Monterrey</span>
+    </div>
+    <h1>Aromas que <em>transforman</em> tu espacio.</h1>
+    <p class="hero-lead">Difusores de varillas y room sprays artesanales, formulados con esencias de alta calidad para llenar tu hogar, oficina o negocio de una atmósfera inolvidable.</p>
+    <div class="hero-buttons">
+      <a href="#collection" class="btn btn-primary">
+        Ver colección
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg>
+      </a>
+      <a href="https://wa.me/525577169082?text=Hola!%20Quisiera%20conocer%20más%20sobre%20los%20aromas" target="_blank" rel="noopener" class="btn btn-ghost">
+        Hacer pedido
+      </a>
+    </div>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <div class="meta-num serif-italic">100%</div>
+        <div class="meta-label">Hecho a mano</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-num serif-italic">8+</div>
+        <div class="meta-label">Aromas únicos</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-num serif-italic">45</div>
+        <div class="meta-label">Días de duración</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <img src="images/frutos-rojos-duo.png" alt="Difusor VimBar Scents Frutos Rojos" />
+    <div class="hero-stamp">
+      <div class="hero-stamp-inner">
+        <div class="num">Est.</div>
+        <div class="lbl">VimBar · MX</div>
+      </div>
+    </div>
+    <div class="hero-caption">
+      <div class="hero-caption-eyebrow">Firma de la casa</div>
+      <div class="hero-caption-text">Difusor de varillas · Frutos Rojos · 100 ml</div>
+    </div>
+  </div>
+</header>
+
+<!-- VALUES -->
+<section class="values">
+  <div class="values-grid reveal">
+    <div class="value-item">
+      <svg class="value-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M12 2C8 2 5 5 5 9c0 4 3 6 7 13 4-7 7-9 7-13 0-4-3-7-7-7z" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="12" cy="9" r="2.5"/>
+      </svg>
+      <h3>Esencias de calidad</h3>
+      <p>Formulaciones cuidadas con materias primas de primera línea.</p>
+    </div>
+    <div class="value-item">
+      <svg class="value-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M12 3v18M3 12h18" stroke-linecap="round"/>
+        <circle cx="12" cy="12" r="9"/>
+      </svg>
+      <h3>Hecho a mano</h3>
+      <p>Producción artesanal, cada botella revisada por nosotros.</p>
+    </div>
+    <div class="value-item">
+      <svg class="value-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M3 12h4l3-9 4 18 3-9h4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h3>Larga duración</h3>
+      <p>Nuestros difusores aromatizan hasta 45 días continuos.</p>
+    </div>
+    <div class="value-item">
+      <svg class="value-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <rect x="3" y="7" width="18" height="12" rx="1"/>
+        <path d="M3 7l9 6 9-6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h3>Envío nacional</h3>
+      <p>Llevamos tu pedido a cualquier parte de la República.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTION -->
+<section id="collection" class="collection">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">La colección</div>
+    <h2 class="section-title">Aromas que cuentan <em>una historia</em></h2>
+    <p class="section-subtitle">Descubre nuestra selección de difusores de varillas y room sprays. Cada aroma fue cuidadosamente formulado para crear la atmósfera perfecta.</p>
+  </div>
+
+  <div class="filter-bar reveal">
+    <button class="filter-btn active" data-filter="all">Todos</button>
+    <button class="filter-btn" data-filter="difusor">Difusores</button>
+    <button class="filter-btn" data-filter="spray">Room Sprays</button>
+    <button class="filter-btn" data-filter="floral">Florales</button>
+    <button class="filter-btn" data-filter="frutal">Frutales</button>
+  </div>
+
+  <div class="grid" id="grid">
+
+    <!-- PRODUCTO 1: Frutos Rojos (Difusor) -->
+    <article class="card reveal" data-cat="difusor frutal">
+      <div class="card-frame">
+        <span class="card-tag accent">Más Vendido</span>
+        <img src="images/frutos-rojos-duo.png" alt="Difusor Frutos Rojos" />
+        <div class="card-overlay">
+          <div class="card-overlay-inner">
+            <p>Un aroma dulce y envolvente que llena cualquier espacio de calidez.</p>
+            <a href="https://wa.me/525577169082?text=Hola!%20Me%20interesa%20el%20Difusor%20Frutos%20Rojos" target="_blank" rel="noopener" class="card-action">
+              Pedir
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="card-info">
+        <div>
+          <div class="card-category">Difusor de varillas</div>
+          <h3 class="card-title">Frutos Rojos</h3>
+          <p class="card-notes">Fresa · Cereza · Vainilla</p>
+        </div>
+        <div class="card-size">100 ml</div>
+      </div>
+    </article>
+
+    <!-- PRODUCTO 2: Lavanda (Room Spray) -->
+    <article class="card reveal" data-cat="spray floral">
+      <div class="card-frame">
+        <span class="card-tag">Nuevo</span>
+        <img src="images/lavanda-spray.png" alt="Room Spray Lavanda" />
+        <div class="card-overlay">
+          <div class="card-overlay-inner">
+            <p>Frescura floral que relaja y renueva el ambiente al instante.</p>
+            <a href="https://wa.me/525577169082?text=Hola!%20Me%20interesa%20el%20Room%20Spray%20Lavanda" target="_blank" rel="noopener" class="card-action">
+              Pedir
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="card-info">
+        <div>
+          <div class="card-category">Room spray</div>
+          <h3 class="card-title">Lavanda</h3>
+          <p class="card-notes">Lavanda · Hierbas · Almizcle</p>
+        </div>
+        <div class="card-size">90 ml</div>
+      </div>
+    </article>
+
+    <!-- PRODUCTO 3: Frutos Rojos detalle peonías -->
+    <article class="card reveal" data-cat="difusor frutal">
+      <div class="card-frame">
+        <img src="images/frutos-rojos-peonias.png" alt="Difusor Frutos Rojos" />
+        <div class="card-overlay">
+          <div class="card-overlay-inner">
+            <p>Perfecto para recámaras, recibidores y rincones de lectura.</p>
+            <a href="https://wa.me/525577169082?text=Hola!%20Me%20interesa%20el%20Difusor%20Frutos%20Rojos" target="_blank" rel="noopener" class="card-action">
+              Pedir
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="card-info">
+        <div>
+          <div class="card-category">Difusor de varillas</div>
+          <h3 class="card-title">Frutos Rojos</h3>
+          <p class="card-notes">Ambiente cálido y romántico</p>
+        </div>
+        <div class="card-size">100 ml</div>
+      </div>
+    </article>
+
+    <!-- Placeholder cards para futuros productos -->
+    <!-- AGREGA MÁS PRODUCTOS: duplica el bloque <article class="card">...</article> -->
+    <!-- NOTA: cuando agregues más fotos, ponlas en /images/ y ajusta el <img src="..."> -->
+
+  </div>
+
+  <div style="text-align: center; margin-top: 5rem;" class="reveal">
+    <a href="https://wa.me/525577169082?text=Hola!%20Quiero%20ver%20el%20catálogo%20completo" target="_blank" rel="noopener" class="btn btn-ghost">
+      Ver catálogo completo
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- STORY -->
+<section id="story" class="story">
+  <div class="story-wrap">
+    <div class="story-visual reveal">
+      <img src="images/frutos-rojos-peonias.png" alt="VimBar Scents" />
+    </div>
+    <div class="story-text reveal">
+      <div class="section-eyebrow" style="margin-bottom: 1.2rem;">Nuestra historia</div>
+      <h2>Cada aroma, <em>una promesa</em> de calidez.</h2>
+      <p>VimBar Scents nace del amor por esos pequeños detalles que hacen un espacio verdaderamente propio. Cada fórmula es desarrollada con tiempo y cuidado, combinando esencias de alta calidad para crear aromas que acompañen los momentos importantes de tu día.</p>
+      <p>Creemos que un buen aroma puede transformar tu ambiente, tu estado de ánimo e incluso cómo te relacionas con tu casa. Esa es la razón por la que hacemos lo que hacemos.</p>
+      <div class="signature">
+        <div class="signature-line"></div>
+        <div class="signature-text">— Desde Monterrey, con cariño</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Cómo pedir</div>
+    <h2 class="section-title">Simple y <em>directo</em></h2>
+    <p class="section-subtitle">Tres pasos para recibir tu aroma favorito en la puerta de tu casa.</p>
+  </div>
+
+  <div class="process-grid reveal">
+    <div class="process-item">
+      <div class="process-num">I</div>
+      <h3>Elige tu aroma</h3>
+      <p>Explora la colección y encuentra el aroma perfecto para tu espacio.</p>
+    </div>
+    <div class="process-item">
+      <div class="process-num">II</div>
+      <h3>Escríbenos</h3>
+      <p>Contáctanos por WhatsApp. Confirmamos disponibilidad y coordinamos el pago.</p>
+    </div>
+    <div class="process-item">
+      <div class="process-num">III</div>
+      <h3>Recibe en casa</h3>
+      <p>Enviamos a todo México, empacado con cuidado y llegando impecable.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" class="testimonials">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Lo que nos dicen</div>
+    <h2 class="section-title">Palabras de <em>nuestros clientes</em></h2>
+  </div>
+
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="testi-quote">"</div>
+      <p class="testi-text">Pedí el difusor de Frutos Rojos y llegó perfecto. El aroma llena toda la sala sin ser invasivo, justo lo que buscaba. Me encantó.</p>
+      <div class="testi-divider"></div>
+      <div class="testi-author">Andrea M.</div>
+      <div class="testi-role">Monterrey</div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-stars"></div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">El room spray de Lavanda es mi favorito para la recámara antes de dormir. Súper buena presentación y atención personalizada por WhatsApp.</p>
+      <div class="testi-divider"></div>
+      <div class="testi-author">Karla R.</div>
+      <div class="testi-role">CDMX</div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-stars"></div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">Compré un difusor para mi oficina y los clientes me preguntan qué aroma es. El producto y el empaque se sienten premium por lo que pagas.</p>
+      <div class="testi-divider"></div>
+      <div class="testi-author">Luis Eduardo</div>
+      <div class="testi-role">Guadalajara</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="reveal">
+    <div class="section-eyebrow">Hagamos tu pedido</div>
+    <h2>Tu próximo aroma <em>favorito</em> está a un mensaje de distancia.</h2>
+    <p>Escríbenos por WhatsApp. Te asesoramos con gusto y coordinamos tu envío a cualquier parte de México.</p>
+    <a href="https://wa.me/525577169082?text=Hola!%20Me%20interesa%20hacer%20un%20pedido%20en%20VimBar%20Scents" target="_blank" rel="noopener" class="whatsapp-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Pedir por WhatsApp
+    </a>
+    <div class="cta-phone">+52 55 7716 9082</div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Preguntas frecuentes</div>
+    <h2 class="section-title">Todo lo que <em>necesitas saber</em></h2>
+  </div>
+
+  <div class="faq-wrap reveal">
+    <div class="faq-item">
+      <div class="faq-q">
+        <span>¿Cuánto dura un difusor de varillas?</span>
+        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4v16m-8-8h16"/></svg>
+      </div>
+      <div class="faq-a">Nuestros difusores de 100 ml tienen una duración aproximada de 45 a 60 días, dependiendo del tamaño del espacio y la cantidad de varillas que coloques. Para una mayor proyección, gira las varillas cada 2-3 días.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">
+        <span>¿Cómo uso el room spray?</span>
+        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4v16m-8-8h16"/></svg>
+      </div>
+      <div class="faq-a">Agita ligeramente el producto y rocía de 3 a 5 veces en el ambiente, alejándolo de muebles delicados y fuentes de calor. Perfecto para refrescar rápidamente recámaras, baños y salas de estar.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">
+        <span>¿Cuánto tarda el envío?</span>
+        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4v16m-8-8h16"/></svg>
+      </div>
+      <div class="faq-a">En Monterrey y área metropolitana el envío tarda de 1 a 2 días hábiles. Al resto de la República, entre 2 y 5 días hábiles vía paquetería.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">
+        <span>¿Cómo hago mi pedido?</span>
+        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4v16m-8-8h16"/></svg>
+      </div>
+      <div class="faq-a">Escríbenos por WhatsApp al 55 7716 9082 con el producto que te interesa. Confirmamos disponibilidad, te pasamos los datos de pago y coordinamos el envío.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">
+        <span>¿Hacen aromas personalizados para negocios?</span>
+        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4v16m-8-8h16"/></svg>
+      </div>
+      <div class="faq-a">¡Sí! Trabajamos con hoteles, spas, tiendas y oficinas que desean una fragancia distintiva. Contáctanos por WhatsApp y platicamos sobre tu proyecto.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL -->
+<section id="social">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Síguenos</div>
+    <h2 class="section-title">Visítanos en <em>Instagram</em></h2>
+    <p class="section-subtitle">Descubre nuevos aromas, promociones y el detrás de escena de nuestra marca.</p>
+  </div>
+
+  <div class="social-grid reveal">
+    <a href="https://www.instagram.com/vimbarscents/" target="_blank" rel="noopener" class="social-card">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+      </svg>
+      <div class="social-label">Instagram</div>
+      <div class="social-handle">@vimbarscents</div>
+      <div class="social-meta">Síguenos para novedades</div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">VIMBAR <em>Scents</em></div>
+      <p>Aromatizantes artesanales.<br>Hecho en Monterrey con cariño.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navegación</h4>
+      <ul>
+        <li><a href="#collection">Colección</a></li>
+        <li><a href="#story">Historia</a></li>
+        <li><a href="#process">Cómo pedir</a></li>
+        <li><a href="#faq">Preguntas</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <ul>
+        <li><a href="https://wa.me/525577169082">WhatsApp</a></li>
+        <li><a href="tel:+525577169082">55 7716 9082</a></li>
+        <li><a href="https://www.instagram.com/vimbarscents/">@vimbarscents</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Productos</h4>
+      <ul>
+        <li><a href="#collection">Difusores</a></li>
+        <li><a href="#collection">Room sprays</a></li>
+        <li><a href="#faq">Aromas personalizados</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 <span>VimBar Scents</span> · Hecho con cariño en México</div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/525577169082?text=Hola!%20Me%20interesa%20un%20producto%20de%20VimBar%20Scents" target="_blank" rel="noopener" class="float-wa" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+
+  // Mobile menu
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Filters
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('#grid .card');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      cards.forEach(card => {
+        const cats = card.dataset.cat || '';
+        if (filter === 'all' || cats.includes(filter)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.remove('is-focused');
+          card.classList.add('hidden');
+        }
+      });
+      document.getElementById('grid').classList.remove('has-focus');
+    });
+  });
+
+  // Touch tap-to-focus
+  const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+  if (isTouch) {
+    const grid = document.getElementById('grid');
+    cards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.card-action')) return;
+        const wasFocused = card.classList.contains('is-focused');
+        cards.forEach(c => c.classList.remove('is-focused'));
+        if (!wasFocused) {
+          card.classList.add('is-focused');
+          grid.classList.add('has-focus');
+          e.preventDefault();
+        } else {
+          grid.classList.remove('has-focus');
+        }
+      });
+    });
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.card')) {
+        cards.forEach(c => c.classList.remove('is-focused'));
+        document.getElementById('grid').classList.remove('has-focus');
+      }
+    });
+  }
+
+  // FAQ
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // Story visual parallax reveal
+  const storyVisual = document.querySelector('.story-visual');
+  if (storyVisual) {
+    const sv = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('active'), 300);
+          sv.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    sv.observe(storyVisual);
+  }
+</script>
+
+</body>
+</html>
